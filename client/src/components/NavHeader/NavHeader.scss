@@ -1,0 +1,68 @@
+.NavHeader {
+  color: white;
+  background-color: #3b2f7d;
+
+  > nav > a {
+    color: white !important;
+
+    &:hover {
+      font-weight: 500;
+    }
+  }
+  .navBase {
+    > a {
+      color: white !important;
+
+      &:hover {
+        font-weight: 500;
+      }
+    }
+  }
+
+  > nav {
+    box-shadow: 0px 5px 15px grey;
+  }
+  a {
+    outline: none;
+  }
+  .sign_out-mobile,
+  .sign_out-desktop {
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .active {
+    font-weight: bold;
+  }
+
+  .sign_out-desktop {
+    display: none;
+    border-radius: 4px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .navBase {
+      width: 75%;
+    }
+
+    .sign_out-desktop {
+      display: inline;
+    }
+    .sign_out-mobile {
+      display: none;
+    }
+  }
+}
+
+.signout_modal {
+  .modal-header {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.modal-buttons {
+  > button {
+    margin-left: 5px;
+  }
+}
