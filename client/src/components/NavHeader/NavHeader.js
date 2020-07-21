@@ -256,10 +256,7 @@ const NavHeader = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Sign out</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <strong>Your cart data will be lost.</strong> Are you sure you want to
-          sign out?
-        </Modal.Body>
+        <Modal.Body>Are you sure you want to sign out?</Modal.Body>
         <Modal.Footer>
           <div className="modal-buttons">
             <Button

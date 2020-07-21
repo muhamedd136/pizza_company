@@ -1,12 +1,17 @@
-import { createStructuredSelector } from "reselect";
+import { emptyCart } from "../../redux/cart/actions";
 import { CheckoutItem } from "../../components";
+import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import React from "react";
 import "./Checkout.scss";
-import { Button } from "react-bootstrap";
 
 const Checkout = (props) => {
-  const { total, cartItems } = props;
+  const { total, cartItems, emptyCart } = props;
+
+  const completeOrder = () => {
+    console.log(cartItems);
+    emptyCart();
+  };
 
   return (
     <div className="Checkout">
@@ -37,7 +42,7 @@ const Checkout = (props) => {
       <div className="Checkout-total">
         <span>TOTAL: ${total}</span>
       </div>
-      <Button variant="outline-primary" size="lg">
+      <Button onClick={completeOrder} variant="outline-primary" size="lg">
         Complete order
       </Button>
     </div>
@@ -52,4 +57,8 @@ const mapStateToProps = (state) => ({
   cartItems: state.cart.cartItems,
 });
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = (dispatch) => ({
+  emptyCart: () => dispatch(emptyCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

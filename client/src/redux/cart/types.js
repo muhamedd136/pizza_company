@@ -4,4 +4,5 @@ export const cartActionTypes = {
   REMOVE_ITEM: "REMOVE_ITEM",
   DECREASE_ITEM_QTY: "DECREATE_ITEM_QTY",
   ADD_QTY: "ADD_QTY",
+  EMPTY_CART: "EMPTY_CART",
 };

@@ -23,3 +23,7 @@ export const addItemQty = (item) => ({
   type: cartActionTypes.ADD_QTY,
   payload: item,
 });
+
+export const emptyCart = () => ({
+  type: cartActionTypes.EMPTY_CART,
+});
