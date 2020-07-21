@@ -1,13 +1,148 @@
 import { Navbar, Nav, NavDropdown, Modal, Button } from "react-bootstrap";
+import { CartIcon, CartDropdown } from "../index";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./NavHeader.scss";
 
-export const NavHeader = (props) => {
+const NavHeader = (props) => {
+  const { showCart, history } = props;
+
+  const [isSignInFormEmpty, setIsSignInFormEmpty] = useState(true);
+  const [isSignUpFormEmpty, setIsSignUpFormEmpty] = useState(true);
   const [signOutModalShow, setSignOutModalShow] = useState(false);
   const [signInModalShow, setSignInModalShow] = useState(false);
+  const [signUpModalShow, setSignUpModalShow] = useState(false);
+  const [isLoadingSignIn, setIsLoadingSignIn] = useState(false);
+  const [signInInfo, setSignInInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [signUpInfo, setSignUpInfo] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+
   const [isSignedIn, setIsSignedIn] = useState(
     localStorage.getItem("access_token") ? true : false
+  );
+
+  const handleSignInInfoChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+
+    setSignInInfo({
+      ...signInInfo,
+      [name]: value,
+    });
+  };
+
+  const handleSignUpInfoChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+
+    setSignUpInfo({
+      ...signUpInfo,
+      [name]: value,
+    });
+  };
+
+  const submitSignInForm = () => {
+    if (signInInfo.email.length === 0 && signInInfo.password.length === 0) {
+      setIsSignInFormEmpty(true);
+      return;
+    } else {
+      setIsSignInFormEmpty(false);
+      setIsLoadingSignIn(true);
+      //submit form
+      console.log(signInInfo);
+      setIsLoadingSignIn(false);
+      setSignInModalShow(false);
+    }
+  };
+
+  const submitSignUpForm = () => {
+    if (
+      signUpInfo.fullName.length === 0 &&
+      signUpInfo.email.length === 0 &&
+      signUpInfo.password.length === 0
+    ) {
+      setIsSignUpFormEmpty(true);
+      return;
+    } else {
+      setIsSignUpFormEmpty(false);
+      // setIsLoadingSignIn(true);
+      //submit form
+      console.log(signUpInfo);
+      // setIsLoadingSignIn(false);
+      setSignUpModalShow(false);
+    }
+  };
+
+  const signInForm = (
+    <form className="Form">
+      <div className="Form-group">
+        <label className="Form-label">Email</label>
+        <input
+          className="Form-input"
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={signInInfo.email}
+          onChange={handleSignInInfoChange}
+        />
+      </div>
+      <div className="Form-group">
+        <label className="Form-label">Password</label>
+        <input
+          className="Form-input"
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={signInInfo.password}
+          onChange={handleSignInInfoChange}
+        />
+      </div>
+    </form>
+  );
+
+  const signUpForm = (
+    <form className="Form">
+      <div className="Form-group">
+        <label className="Form-label">Full name</label>
+        <input
+          className="Form-input"
+          type="text"
+          placeholder="Full name"
+          name="fullName"
+          value={signUpInfo.fullName}
+          onChange={handleSignUpInfoChange}
+        />
+      </div>
+      <div className="Form-group">
+        <label className="Form-label">Email</label>
+        <input
+          className="Form-input"
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={signUpInfo.email}
+          onChange={handleSignUpInfoChange}
+        />
+      </div>
+      <div className="Form-group">
+        <label className="Form-label">Password</label>
+        <input
+          className="Form-input"
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={signUpInfo.password}
+          onChange={handleSignUpInfoChange}
+        />
+      </div>
+    </form>
   );
 
   return (
@@ -21,10 +156,25 @@ export const NavHeader = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Sign in</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Sign in form</Modal.Body>
+        <Modal.Body>
+          {signInForm}
+          <div className="SignIn-helptext">
+            <span>Don't have an acount?</span>
+            <Button
+              variant="link"
+              onClick={() => {
+                setSignInModalShow(false);
+                setSignUpModalShow(true);
+              }}
+            >
+              Sign up
+            </Button>
+          </div>
+        </Modal.Body>
         <Modal.Footer>
           <div className="modal-buttons">
             <Button
+              className="Modal-button-secondary"
               size="md"
               variant="outline-secondary"
               onClick={() => {
@@ -34,12 +184,63 @@ export const NavHeader = (props) => {
               Cancel
             </Button>
             <Button
+              className="Modal-button"
               size="md"
+              variant="outline-primary"
+              onClick={() => {
+                submitSignInForm();
+              }}
+            >
+              Sign in
+            </Button>
+          </div>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={signUpModalShow}
+        onHide={() => setSignUpModalShow(false)}
+        className="signout_modal"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Sign up</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {signUpForm}
+          <div className="SignIn-helptext">
+            <span>Already have an acount?</span>
+            <Button
+              variant="link"
+              onClick={() => {
+                setSignInModalShow(true);
+                setSignUpModalShow(false);
+              }}
+            >
+              Sign in
+            </Button>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="modal-buttons">
+            <Button
+              className="Modal-button-secondary"
+              size="md"
+              variant="outline-secondary"
               onClick={() => {
                 setSignInModalShow(false);
               }}
             >
-              Sign in
+              Cancel
+            </Button>
+            <Button
+              className="Modal-button"
+              size="md"
+              variant="outline-primary"
+              onClick={() => {
+                submitSignUpForm();
+              }}
+            >
+              Sign up
             </Button>
           </div>
         </Modal.Footer>
@@ -57,6 +258,7 @@ export const NavHeader = (props) => {
         <Modal.Footer>
           <div className="modal-buttons">
             <Button
+              className="Modal-button-secondary"
               size="md"
               variant="outline-secondary"
               onClick={() => {
@@ -66,11 +268,13 @@ export const NavHeader = (props) => {
               No
             </Button>
             <Button
+              className="Modal-button"
               size="md"
+              variant="outline-primary"
               onClick={() => {
                 setSignOutModalShow(false);
                 localStorage.removeItem("access_token");
-                props.history.push("/");
+                history.push("/");
                 window.location.reload();
               }}
             >
@@ -95,13 +299,14 @@ export const NavHeader = (props) => {
             ) : null}
 
             <NavDropdown.Divider />
+
             {isSignedIn ? (
               <Nav.Link
                 eventKey="100"
                 className="sign_out-mobile"
                 onClick={() => {
                   setSignOutModalShow(true);
-                  props.history.push("/");
+                  history.push("/");
                 }}
               >
                 Sign out
@@ -119,6 +324,9 @@ export const NavHeader = (props) => {
             )}
           </Nav>
         </Navbar.Collapse>
+        <Nav.Link className="cart-link" eventKey="4" as={Link} to="/orders">
+          <CartIcon />
+        </Nav.Link>
         {isSignedIn ? (
           <Nav.Link
             className="sign_out-desktop"
@@ -141,6 +349,13 @@ export const NavHeader = (props) => {
           </Nav.Link>
         )}
       </Navbar>
+      {showCart ? <CartDropdown /> : null}
     </div>
   );
 };
+
+const mapStateToProps = ({ cart: { showCart } }) => ({
+  showCart,
+});
+
+export default connect(mapStateToProps)(NavHeader);

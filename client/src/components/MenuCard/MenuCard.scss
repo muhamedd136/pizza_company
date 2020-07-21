@@ -5,7 +5,7 @@
   align-items: flex-start;
   padding: 15px 30px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(88, 84, 132, 0.4);
   transition: 0.3s;
 
@@ -44,11 +44,38 @@
     color: #3b2f7d;
     border-color: #3b2f7d;
     font-weight: 600;
+    border-radius: 15px;
 
     &:hover {
       color: white;
       border-color: #3b2f7d;
       background-color: #3b2f7d;
+    }
+  }
+
+  .MenuCard-qty {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: 500;
+
+    > input {
+      display: block;
+      width: 50%;
+      height: 100%;
+      padding: 5px 10px;
+      font-size: 1rem;
+      background-clip: padding-box;
+      border: 1px solid #3b2f7d;
+      border-radius: 15px;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      outline: none;
+
+      &:active {
+        border-radius: 15px;
+      }
     }
   }
 }

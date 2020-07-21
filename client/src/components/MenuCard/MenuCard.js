@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./MenuCard.scss";
 import { Button } from "react-bootstrap";
 
 export const MenuCard = (props) => {
   const { name, price, image, ingredients, id } = props;
+
+  const [itemInfo, setItemInfo] = useState({
+    id: id,
+    name: name,
+    price: price,
+    image: image,
+    ingredients: ingredients,
+    qty: 0,
+  });
+
+  const changeQty = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+
+    setItemInfo({
+      ...itemInfo,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="MenuCard">
       <img
@@ -28,6 +48,17 @@ export const MenuCard = (props) => {
               );
             })
           : null}
+      </div>
+      <div className="MenuCard-qty">
+        <label>Quantity:</label>
+        <input
+          type="number"
+          name="qty"
+          min={0}
+          max={99}
+          value={itemInfo.qty}
+          onChange={changeQty}
+        />
       </div>
       <Button size="sm" block variant="outline-primary">
         Add to cart

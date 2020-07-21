@@ -2,11 +2,16 @@
   color: white;
   background-color: #3b2f7d;
 
+  .cart-icon {
+    padding: 0 !important;
+  }
+
   > nav > a {
     color: white !important;
+    padding: 0 0 0 5px;
 
     &:hover {
-      font-weight: 500;
+      font-weight: 700;
     }
   }
   .navBase {
@@ -14,7 +19,7 @@
       color: white !important;
 
       &:hover {
-        font-weight: 500;
+        font-weight: 700;
       }
     }
   }
@@ -27,7 +32,7 @@
   }
   .sign_out-mobile,
   .sign_out-desktop {
-    font-weight: bold;
+    font-weight: 600;
     text-decoration: none;
   }
 
@@ -65,4 +70,63 @@
   > button {
     margin-left: 5px;
   }
+}
+
+.Modal-button {
+  font-weight: 600;
+  border-radius: 15px;
+  color: white !important;
+  border-color: #3b2f7d !important;
+  background-color: #3b2f7d !important;
+
+  &:hover {
+    color: #3b2f7d !important;
+    border-color: #3b2f7d !important;
+    background-color: white !important;
+  }
+}
+
+.Modal-button-secondary {
+  font-weight: 600;
+  border-radius: 15px;
+}
+
+.Form {
+  padding: 15px;
+  width: 100%;
+
+  .Form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-bottom: 5px;
+  }
+
+  .Form-label {
+    font-weight: 600;
+  }
+
+  .Form-input {
+    width: 100%;
+    display: block;
+    height: 100%;
+    padding: 5px 10px;
+    font-size: 1rem;
+    background-clip: padding-box;
+    border: 1px solid #3b2f7d;
+    border-radius: 15px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    outline: none;
+
+    &:active {
+      border-radius: 15px;
+    }
+  }
+}
+
+.SignIn-helptext {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
 }
