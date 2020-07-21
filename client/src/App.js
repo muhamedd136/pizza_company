@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Menu, Orders, Checkout } from "./pages";
 import { NavHeader } from "./components";
-import { Menu, Orders } from "./pages";
 import React from "react";
 import "./App.scss";
 
@@ -10,8 +10,9 @@ function App() {
       <Router>
         <Route component={NavHeader} />
         <Switch>
-          <Route path="/orders" component={Orders} />
-          <Route path="/" component={Menu} />
+          <Route exact path="/orders" component={Orders} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/" component={Menu} />
         </Switch>
       </Router>
     </div>

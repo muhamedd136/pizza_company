@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import "./MenuCard.scss";
+import { addItem } from "../../redux/cart/actions";
 import { Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import "./MenuCard.scss";
 
-export const MenuCard = (props) => {
-  const { name, price, image, ingredients, id } = props;
+const MenuCard = (props) => {
+  const { name, price, image, ingredients, id, addItem } = props;
 
   const [itemInfo, setItemInfo] = useState({
     id: id,
@@ -11,7 +13,7 @@ export const MenuCard = (props) => {
     price: price,
     image: image,
     ingredients: ingredients,
-    qty: 0,
+    qty: 1,
   });
 
   const changeQty = (event) => {
@@ -20,7 +22,7 @@ export const MenuCard = (props) => {
 
     setItemInfo({
       ...itemInfo,
-      [name]: value,
+      [name]: Number(value),
     });
   };
 
@@ -28,7 +30,7 @@ export const MenuCard = (props) => {
     <div className="MenuCard">
       <img
         className="MenuCard-img"
-        src="https://lh3.googleusercontent.com/proxy/af3xj_WRooaDqmS4HPQHKGyERvoEaC1Kz4hIW5LngVuOleYE5jroYNoG1C-fUBANKvTsYlIBTCq305wAdQAH4kZHSRbYH0s17kJVWlWcpz3U_8O_TfdZIMyeSIMkxl0Gl5nr9jjifNq5JXRzNkOYVw"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pizza.png/320px-Pizza.png"
         alt="pizza"
       />
       <div className="MenuCard-text">{name}</div>
@@ -54,15 +56,28 @@ export const MenuCard = (props) => {
         <input
           type="number"
           name="qty"
-          min={0}
+          min={1}
           max={99}
-          value={itemInfo.qty}
+          value={Number(itemInfo.qty)}
           onChange={changeQty}
         />
       </div>
-      <Button size="sm" block variant="outline-primary">
+      <Button
+        size="sm"
+        block
+        variant="outline-primary"
+        onClick={() => {
+          addItem(itemInfo);
+        }}
+      >
         Add to cart
       </Button>
     </div>
   );
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+});
+
+export default connect(null, mapDispatchToProps)(MenuCard);

@@ -19,10 +19,6 @@ export const Menu = () => {
               ingredients={item.ingredients}
               price={item.price}
             />
-            // <div key={index} className="Menu-list-item">
-            //   <p>{item.name}</p>
-            //   <p>{item.price}</p>
-            // </div>
           );
         })}
       </div>

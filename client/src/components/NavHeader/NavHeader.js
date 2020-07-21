@@ -57,6 +57,8 @@ const NavHeader = (props) => {
       setIsLoadingSignIn(true);
       //submit form
       console.log(signInInfo);
+      localStorage.setItem("access_token", "aaa");
+      window.location.reload();
       setIsLoadingSignIn(false);
       setSignInModalShow(false);
     }
@@ -254,7 +256,10 @@ const NavHeader = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Sign out</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to sign out?</Modal.Body>
+        <Modal.Body>
+          <strong>Your cart data will be lost.</strong> Are you sure you want to
+          sign out?
+        </Modal.Body>
         <Modal.Footer>
           <div className="modal-buttons">
             <Button
@@ -274,7 +279,7 @@ const NavHeader = (props) => {
               onClick={() => {
                 setSignOutModalShow(false);
                 localStorage.removeItem("access_token");
-                history.push("/");
+                props.history.push("/");
                 window.location.reload();
               }}
             >
@@ -287,11 +292,9 @@ const NavHeader = (props) => {
         <Navbar.Toggle />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="navBase">
-            {isSignedIn ? (
-              <Nav.Link eventKey="2" as={Link} to="/">
-                Menu
-              </Nav.Link>
-            ) : null}
+            <Nav.Link eventKey="2" as={Link} to="/">
+              Menu
+            </Nav.Link>
             {isSignedIn ? (
               <Nav.Link eventKey="3" as={Link} to="/orders">
                 Orders
@@ -306,7 +309,7 @@ const NavHeader = (props) => {
                 className="sign_out-mobile"
                 onClick={() => {
                   setSignOutModalShow(true);
-                  history.push("/");
+                  props.history.push("/");
                 }}
               >
                 Sign out
@@ -324,7 +327,7 @@ const NavHeader = (props) => {
             )}
           </Nav>
         </Navbar.Collapse>
-        <Nav.Link className="cart-link" eventKey="4" as={Link} to="/orders">
+        <Nav.Link className="cart-link" eventKey="4">
           <CartIcon />
         </Nav.Link>
         {isSignedIn ? (
