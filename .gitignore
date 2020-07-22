@@ -1,0 +1,4 @@
+# /client gitignore
+
+# dependencies
+node_modules/
