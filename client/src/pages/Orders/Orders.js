@@ -37,6 +37,8 @@ export const Orders = () => {
                     details={order.details}
                     created={order.created}
                     total={order.total}
+                    address={order.address}
+                    contact={order.contact}
                   />
                 );
               })

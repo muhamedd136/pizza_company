@@ -2,7 +2,7 @@ import React from "react";
 import "./OrderCard.scss";
 
 export const OrderCard = (props) => {
-  const { id, details, total, created } = props;
+  const { id, details, total, created, address, contact } = props;
   const parsedDetails = JSON.parse(details);
   let date = new Date(created);
 
@@ -30,6 +30,14 @@ export const OrderCard = (props) => {
         </div>
       </div>
       <div>
+        <div className="OrderCard-detail">
+          <strong>Address: </strong>
+          {address}
+        </div>
+        <div className="OrderCard-detail">
+          <strong>Contact: </strong>
+          {contact}
+        </div>
         <div className="OrderCard-detail">
           <strong>Total price: </strong>${total} (€{total * 0.86})
         </div>

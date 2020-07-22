@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 const getBaseUrl = () => {
   let url = window.location;
   let baseUrl =
@@ -13,3 +15,25 @@ const getBaseUrl = () => {
 };
 
 export const BASE_URL = getBaseUrl();
+
+export const getSuccessToast = (message) => {
+  toast.success(message, {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 3550,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};
+
+export const getFailToast = (message) => {
+  toast.error(message, {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 3550,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+};

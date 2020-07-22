@@ -22,7 +22,7 @@ class OrdersController extends Controller
     public function createOrder(Request $request) {
 
         DB::table('orders')->insert([
-            'user_id' => $request['userId'], 'details' => $request['details'], 'created' => $request['created'], 'total' => $request['total']
+            'user_id' => $request['userId'], 'details' => $request['details'], 'created' => $request['created'], 'total' => $request['total'], 'address' => $request['address'], 'contact' => $request['contact'], 
         ]);
 
         return response()->json(['order_successful'], 200);
