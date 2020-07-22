@@ -1,12 +1,13 @@
 import { Navbar, Nav, NavDropdown, Modal, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
 import { CartIcon, CartDropdown } from "../index";
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import user from "../../api/user";
 import "./NavHeader.scss";
 
 const NavHeader = (props) => {
-  const { showCart, history } = props;
+  const { showCart } = props;
 
   const [isSignInFormEmpty, setIsSignInFormEmpty] = useState(true);
   const [isSignUpFormEmpty, setIsSignUpFormEmpty] = useState(true);
@@ -19,7 +20,7 @@ const NavHeader = (props) => {
     password: "",
   });
   const [signUpInfo, setSignUpInfo] = useState({
-    fullName: "",
+    full_name: "",
     email: "",
     password: "",
   });
@@ -48,25 +49,28 @@ const NavHeader = (props) => {
     });
   };
 
-  const submitSignInForm = () => {
+  const submitSignInForm = async () => {
     if (signInInfo.email.length === 0 && signInInfo.password.length === 0) {
       setIsSignInFormEmpty(true);
       return;
     } else {
       setIsSignInFormEmpty(false);
       setIsLoadingSignIn(true);
-      //submit form
-      console.log(signInInfo);
-      localStorage.setItem("access_token", "aaa");
-      window.location.reload();
+      await user
+        .login(signInInfo)
+        .then((response) => {
+          localStorage.setItem("access_token", response.data.token);
+        })
+        .catch((error) => console.log(error));
       setIsLoadingSignIn(false);
       setSignInModalShow(false);
+      window.location.reload();
     }
   };
 
-  const submitSignUpForm = () => {
+  const submitSignUpForm = async () => {
     if (
-      signUpInfo.fullName.length === 0 &&
+      signUpInfo.full_name.length === 0 &&
       signUpInfo.email.length === 0 &&
       signUpInfo.password.length === 0
     ) {
@@ -74,10 +78,13 @@ const NavHeader = (props) => {
       return;
     } else {
       setIsSignUpFormEmpty(false);
-      // setIsLoadingSignIn(true);
-      //submit form
-      console.log(signUpInfo);
-      // setIsLoadingSignIn(false);
+      await user
+        .register(signUpInfo)
+        .then(() => {
+          setSignUpModalShow(false);
+          setSignInModalShow(true);
+        })
+        .catch((error) => console.log(error));
       setSignUpModalShow(false);
     }
   };
@@ -117,8 +124,8 @@ const NavHeader = (props) => {
           className="Form-input"
           type="text"
           placeholder="Full name"
-          name="fullName"
-          value={signUpInfo.fullName}
+          name="full_name"
+          value={signUpInfo.full_name}
           onChange={handleSignUpInfoChange}
         />
       </div>

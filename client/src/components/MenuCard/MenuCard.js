@@ -28,50 +28,35 @@ const MenuCard = (props) => {
 
   return (
     <div className="MenuCard">
-      <img
-        className="MenuCard-img"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Pizza.png/320px-Pizza.png"
-        alt="pizza"
-      />
-      <div className="MenuCard-text">{name}</div>
-      <div className="MenuCard-price"> ${price} </div>
-      <div className="MenuCard-ingredients">
-        {ingredients
-          ? ingredients.map((item, index) => {
-              let sign = ", ";
-              if (index === ingredients.length - 1) {
-                sign = ".";
-              }
-              return (
-                <span className="MenuCard-ingredient" key={index}>
-                  {item}
-                  {sign}
-                </span>
-              );
-            })
-          : null}
+      <img className="MenuCard-img" src={image} alt="pizza" />
+      <div>
+        <div className="MenuCard-text">{name}</div>
+        <div className="MenuCard-price"> ${price} </div>
+        <div className="MenuCard-ingredients">{ingredients}</div>
       </div>
-      <div className="MenuCard-qty">
-        <label>Quantity:</label>
-        <input
-          type="number"
-          name="qty"
-          min={1}
-          max={99}
-          value={Number(itemInfo.qty)}
-          onChange={changeQty}
-        />
+      <div className="Qty-Btn">
+        <div className="MenuCard-qty">
+          <label>Quantity:</label>
+          <input
+            type="number"
+            name="qty"
+            min={1}
+            max={99}
+            value={Number(itemInfo.qty)}
+            onChange={changeQty}
+          />
+        </div>
+        <Button
+          size="sm"
+          block
+          variant="outline-primary"
+          onClick={() => {
+            addItem(itemInfo);
+          }}
+        >
+          Add to cart
+        </Button>
       </div>
-      <Button
-        size="sm"
-        block
-        variant="outline-primary"
-        onClick={() => {
-          addItem(itemInfo);
-        }}
-      >
-        Add to cart
-      </Button>
     </div>
   );
 };

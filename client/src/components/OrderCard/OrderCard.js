@@ -2,20 +2,22 @@ import React from "react";
 import "./OrderCard.scss";
 
 export const OrderCard = (props) => {
-  const { id, details, note, created } = props;
+  const { id, details, total, created } = props;
+  const parsedDetails = JSON.parse(details);
   let date = new Date(created);
+
   return (
     <div className="OrderCard">
       <div>
         <h4>Order {id}</h4>
         <div className="OrderCard-details">
-          {details
-            ? details.map((detail, index) => {
+          {parsedDetails.details
+            ? parsedDetails.details.map((detail, index) => {
                 return (
                   <div className="OrderCard-detail" key={id + index}>
                     <span>
                       <strong>Name: </strong>
-                      {detail.pizza}{" "}
+                      {detail.name}{" "}
                     </span>
                     <br />
                     <span>
@@ -29,8 +31,7 @@ export const OrderCard = (props) => {
       </div>
       <div>
         <div className="OrderCard-detail">
-          <strong>Note: </strong>
-          {note}
+          <strong>Total price: </strong>${total} (€{total * 0.86})
         </div>
         <div className="OrderCard-detail">
           <strong>Date: </strong>

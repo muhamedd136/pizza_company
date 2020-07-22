@@ -1,7 +1,7 @@
 .MenuCard {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 15px 30px;
   background-color: white;
@@ -14,18 +14,18 @@
   }
 
   .MenuCard-img {
-    max-width: 100%;
-    max-height: 50%;
+    width: 194px;
+    height: 194px;
   }
 
   .MenuCard-text {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
   }
 
   .MenuCard-price {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     margin-bottom: 5px;
   }
@@ -34,22 +34,26 @@
     margin-bottom: 5px;
   }
 
-  .MenuCard-ingredient {
-    font-size: 16px;
+  .MenuCard-ingredients {
+    font-size: 12px;
     font-style: italic;
     color: gray;
   }
 
-  > button {
-    color: #3b2f7d;
-    border-color: #3b2f7d;
-    font-weight: 600;
-    border-radius: 15px;
+  .Qty-Btn {
+    width: 100%;
 
-    &:hover {
-      color: white;
+    > button {
+      color: #3b2f7d;
       border-color: #3b2f7d;
-      background-color: #3b2f7d;
+      font-weight: 600;
+      border-radius: 15px;
+
+      &:hover {
+        color: white;
+        border-color: #3b2f7d;
+        background-color: #3b2f7d;
+      }
     }
   }
 
