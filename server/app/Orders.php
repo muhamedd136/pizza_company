@@ -15,6 +15,6 @@ class Orders
      * @var array
      */
     protected $fillable = [
-        'user_id', 'details', 'note', 'created'
+        'user_id', 'details', 'created', 'total'
     ];
 }

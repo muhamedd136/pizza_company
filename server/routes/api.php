@@ -21,7 +21,7 @@ Route::post('login', 'UserController@login');
 Route::get('menu', 'MenuController@getMenu');
 
 Route::post('createOrder', 'OrdersController@createOrder');
-Route::get('orders', 'OrdersController@getOrders');
+Route::get('getOrders/{userId}', 'OrdersController@getOrders');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
