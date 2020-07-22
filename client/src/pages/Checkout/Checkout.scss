@@ -33,8 +33,18 @@
   .Checkout-total {
     margin-top: 30px;
     margin-left: auto;
-    font-size: 36px;
+    font-size: 26px;
     font-weight: 500;
+    display: flex;
+    flex-direction: column;
+
+    .Checkout-span {
+      border-bottom: 1px solid darkgrey;
+    }
+
+    > span {
+      text-align: right;
+    }
   }
 
   button {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MenuCard } from "../../components";
+import { Spinner } from "react-bootstrap";
 import menu from "../../api/menu";
 import "./Menu.scss";
 
@@ -20,22 +21,26 @@ export const Menu = () => {
   return (
     <div className="Menu">
       <h1>Menu</h1>
-      <div className="Menu-list">
-        {menulist
-          ? menulist.map((item, index) => {
-              return (
-                <MenuCard
-                  key={index}
-                  id={item.id}
-                  image={item.image}
-                  name={item.name}
-                  ingredients={item.ingredients}
-                  price={item.price}
-                />
-              );
-            })
-          : null}
-      </div>
+      {menulist ? (
+        <div className="Menu-list">
+          {menulist
+            ? menulist.map((item, index) => {
+                return (
+                  <MenuCard
+                    key={index}
+                    id={item.id}
+                    image={item.image}
+                    name={item.name}
+                    ingredients={item.ingredients}
+                    price={item.price}
+                  />
+                );
+              })
+            : "No items in menu."}
+        </div>
+      ) : (
+        <Spinner size="lg" animation="border" />
+      )}
     </div>
   );
 };

@@ -81,8 +81,12 @@ const Checkout = (props) => {
           : null}
       </div>
       <div className="Checkout-total">
+        <span>DELIVERY: $5 (€{5 * 0.86})</span>
+        <span className="Checkout-span">
+          BILL: ${total} (€{total * 0.86})
+        </span>
         <span>
-          TOTAL: ${total} (€{total * 0.86})
+          TOTAL: ${total + 5} (€{(total + 5) * 0.86})
         </span>
       </div>
       <Button onClick={completeOrder} variant="outline-primary" size="lg">

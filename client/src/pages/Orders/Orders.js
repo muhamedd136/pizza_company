@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { OrderCard } from "../../components";
+import { Spinner } from "react-bootstrap";
 import orders from "../../api/orders";
 import "./Orders.scss";
 
@@ -25,21 +26,25 @@ export const Orders = () => {
   return (
     <div className="Orders">
       <h1>Orders</h1>
-      <div className="Orders-list">
-        {orderslist
-          ? orderslist.map((order, index) => {
-              return (
-                <OrderCard
-                  key={index}
-                  id={order.id}
-                  details={order.details}
-                  created={order.created}
-                  total={order.total}
-                />
-              );
-            })
-          : null}
-      </div>
+      {orderslist ? (
+        <div className="Orders-list">
+          {orderslist
+            ? orderslist.map((order, index) => {
+                return (
+                  <OrderCard
+                    key={index}
+                    id={order.id}
+                    details={order.details}
+                    created={order.created}
+                    total={order.total}
+                  />
+                );
+              })
+            : "No orders."}
+        </div>
+      ) : (
+        <Spinner animation="border" />
+      )}
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import { Navbar, Nav, NavDropdown, Modal, Button } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
 import { CartIcon, CartDropdown } from "../index";
+import { Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import user from "../../api/user";
 import "./NavHeader.scss";
@@ -15,6 +16,7 @@ const NavHeader = (props) => {
   const [signInModalShow, setSignInModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);
   const [isLoadingSignIn, setIsLoadingSignIn] = useState(false);
+  const [isLoadingSignUp, setIsLoadingSignUp] = useState(false);
   const [signInInfo, setSignInInfo] = useState({
     email: "",
     password: "",
@@ -78,6 +80,7 @@ const NavHeader = (props) => {
       return;
     } else {
       setIsSignUpFormEmpty(false);
+      setIsLoadingSignUp(true);
       await user
         .register(signUpInfo)
         .then(() => {
@@ -85,6 +88,7 @@ const NavHeader = (props) => {
           setSignInModalShow(true);
         })
         .catch((error) => console.log(error));
+      setIsLoadingSignUp(false);
       setSignUpModalShow(false);
     }
   };
@@ -200,7 +204,11 @@ const NavHeader = (props) => {
                 submitSignInForm();
               }}
             >
-              Sign in
+              {isLoadingSignIn ? (
+                <Spinner size="sm" animation="border" />
+              ) : (
+                "Sign in"
+              )}
             </Button>
           </div>
         </Modal.Footer>
@@ -249,7 +257,11 @@ const NavHeader = (props) => {
                 submitSignUpForm();
               }}
             >
-              Sign up
+              {isLoadingSignUp ? (
+                <Spinner size="sm" animation="border" />
+              ) : (
+                "Sign up"
+              )}
             </Button>
           </div>
         </Modal.Footer>
